@@ -1,0 +1,14 @@
+{
+  "name": "web-app",
+  "version": "1.0.0",
+  "description": "Code related to the web app goes in this folder.",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.4.3"
+  }
+}
