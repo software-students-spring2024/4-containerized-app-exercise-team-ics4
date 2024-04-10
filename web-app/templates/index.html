@@ -11,100 +11,151 @@
     />
   </head>
   <body>
-    <div class="container mx-auto my-12 max-w-screen-sm grid gap-y-12">
+    <div class="container mx-auto my-24 max-w-screen-sm grid gap-y-12">
       <!-- header -->
-      <div class="grid gap-y-2">
-        <h1 class="text-blue-600 text-4xl">Project 4</h1>
-        <h1 class="text-gray-600 text-2xl">Project 4 Description</h1>
-      </div>
-
-      <!-- camera feed -->
-      <div
-        class="bg-gray-200 rounded-2xl h-96 w-full overflow-hidden"
-        id="allow-camera-placeholder"
-      >
-        <div class="grid place-content-center h-full items-center">
-          <div class="flex flex-col items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="1.5"
-              stroke="currentColor"
-              class="w-12 h-12 stroke-gray-400"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 0 1-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.407.659-.97.659-1.591v-9a2.25 2.25 0 0 0-2.25-2.25h-9c-.621 0-1.184.252-1.591.659m12.182 12.182L2.909 5.909M1.5 4.5l1.409 1.409"
-              />
-            </svg>
-
-            <h1 class="text-lg text-gray-400 font-semibold">
-              Please allow your camera!
-            </h1>
-          </div>
-        </div>
-      </div>
-      <div
-        class="hidden static h-96 w-full z-100 rounded-2xl overflow-hidden"
-        id="webcam-container"
-      >
-        <div class="absolute mt-4 ml-4 dot flex flex-row items-center">
-          <h1 class="mr-1 text-red-500">•</h1>
-          <h1 class="font-mono text-white">live feed</h1>
-        </div>
-        <video class="" autoplay="true" id="webcam"></video>
+      <div class="grid gap-y-4">
+        <h1 class="text-blue-600 font-bold text-4xl">Gesture to Emoji</h1>
+        <h1 class="text-lg">
+          In this project, we take your video feed and convert your hand gesture
+          into an emoji.
+        </h1>
+        <h1 class="text-lg">Try these out! 👍✊✋☝️👎✌️</h1>
       </div>
 
       <!-- metadata -->
       <div class="grid gap-y-2">
-        <h1 class="text-gray-600 text-2xl mb-2">Metadata</h1>
-        <h1 class="text-gray-600 text-lg">Statistic 1:</h1>
-        <h1 class="text-gray-600 text-lg">Statistic 2:</h1>
-        <h1 class="text-gray-600 text-lg">Statistic 3:</h1>
-        <h1 class="text-gray-600 text-lg">Statistic 4:</h1>
+        <h1 class="text-gray-600 text-2xl mb-1">ML Client Response</h1>
+
+        <!-- loading -->
+        <div class="flex flex-row gap-x-2 items-center" id="loading">
+          <div role="status">
+            <svg
+              aria-hidden="true"
+              class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-400 fill-blue-600"
+              viewBox="0 0 100 101"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor"
+              />
+              <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="currentFill"
+              />
+            </svg>
+            <span class="sr-only">Loading...</span>
+          </div>
+          <h1 class="text-lg">ML Client Loading...</h1>
+        </div>
+
+        <div
+          class="flex flex-row gap-x-2 items-center hidden"
+          id="done-loading"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-6 h-6 stroke-green-600"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+            />
+          </svg>
+          <h1 class="text-green-600 text-lg">Loaded</h1>
+        </div>
+      </div>
+
+      <div class="flex flex-row gap-x-2">
+        <div
+          class="bg-blue-600 rounded-3xl h-64 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">gesture</h1>
+            <h1 class="font-bold text-6xl text-white" id="gesture">''</h1>
+          </div>
+        </div>
+        <div
+          class="bg-blue-600 rounded-3xl h-64 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">
+              confidence
+            </h1>
+            <h1 class="font-bold text-6xl text-white" id="confidence">''</h1>
+          </div>
+        </div>
       </div>
     </div>
   </body>
 </html>
 
 <script>
-  var video = document.querySelector("#webcam");
-
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then(function (stream) {
-        video.srcObject = stream;
-
-        // hide text
-        var element = document.getElementById("allow-camera-placeholder");
-        element.classList.add("hidden");
-
-        // show video
-        var element = document.getElementById("webcam-container");
-        element.classList.remove("hidden");
+  const resetStatus = async () => {
+    fetch("/reset_status", {
+      method: "POST",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
       })
-      .catch(function (err0r) {
-        console.log("Something went wrong!");
+      .catch((error) => {
+        alert("Error: " + error.message);
       });
-  }
-</script>
+  };
 
-<style>
-  @keyframes blink {
-    0% {
-      opacity: 0;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-  .dot {
-    animation: blink 2s infinite;
-  }
-</style>
+  // update status
+  const updateStatus = async () => {
+    fetch("/status", {
+      method: "GET",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        if (response["loading"] == false) {
+          const loadingDiv = document.getElementById("loading");
+          const doneLoadingDiv = document.getElementById("done-loading");
+          loadingDiv.classList.add("hidden");
+          doneLoadingDiv.classList.remove("hidden");
+        }
+
+        // update metadata
+        if (response["gesture"] != "") {
+          gesture = response["gesture"];
+          var text = "''";
+          if (gesture == "Thumb_Up") text = "👍";
+          if (gesture == "Closed_Fist") text = "✊";
+          if (gesture == "Open_Palm") text = "✋";
+          if (gesture == "Pointing_Up") text = "☝️";
+          if (gesture == "Thumb_Down") text = "👎";
+          if (gesture == "Victory") text = "✌️";
+
+          const gestureElement = document.getElementById("gesture");
+          gestureElement.textContent = text;
+
+          const confidenceElement = document.getElementById("confidence");
+          confidenceElement.textContent =
+            (response["confidence"] * 100).toFixed(2) + "%";
+        }
+      });
+  };
+
+  // run on page load
+  document.addEventListener("DOMContentLoaded", async function () {
+    await resetStatus();
+    await updateStatus();
+
+    setInterval(updateStatus, 250);
+  });
+</script>
