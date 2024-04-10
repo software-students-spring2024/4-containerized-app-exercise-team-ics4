@@ -4,8 +4,7 @@ import cv2
 # connect to pymongo
 from pymongo import MongoClient
 print("Connecting to Mongo...")
-client = MongoClient("localhost", 27017)
-print("Connected to Mongo!")
+client = MongoClient("mongodb://db:27017/")
 db = client.camera_live_feed
 db['status'].drop() # clear past data
 
@@ -64,11 +63,7 @@ with GestureRecognizer.create_from_options(options) as recognizer:
         ret, frame = video.read()
         if (ret):
             collection.update_one({"cameraConnected": False}, {"$set": {"cameraConnected": True}})
-            
-        if(set_loading==False):
-            # done loading
             collection.update_one({"loading": True}, {"$set": {"loading": False}})
-            set_loading=True
 
         if not ret:
             print("Ignoring empty frame")

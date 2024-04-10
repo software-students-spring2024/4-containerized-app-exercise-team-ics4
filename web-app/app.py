@@ -3,7 +3,7 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-client = MongoClient("localhost", 27017)
+client = MongoClient("mongodb://db:27017/")
 db = client.camera_live_feed
 status_collection = db.status
 
@@ -37,7 +37,8 @@ def reset_status():
         initial_status = {
 			"loading": True,
 			"gesture": "",
-			"confidence": 0
+			"confidence": 0,
+            "cameraConnected": False
 		}
         status_collection.update_one({}, {"$set": initial_status})
         return jsonify({"success": True, "message": "Status reset to initial state"})
