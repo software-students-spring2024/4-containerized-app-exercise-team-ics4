@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  webapp:
+    build: ./web-app
+    ports:
+      - 5000:5000
+  ml-client:
+    build: ./machine-learning-client
+    ports:
+      - 3001:3001
+    environment:
+      DB_URL: mongodb://localhost
+  db:
+    image: mongo:6-jammy
+    ports: 
+      - 27017:27017
+    volumes:
+      - helloworld:/data/db
+
+volumes:
+  helloworld: 
