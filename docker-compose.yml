@@ -1,22 +1,28 @@
 version: "3.8"
 
 services:
+  db:
+    image: mongo:latest
+    privileged: true
+    ports: 
+      - '27017:27017'
+    volumes:
+      - db_data:/data/db
+
   webapp:
     build: ./web-app
+    privileged: true
     ports:
-      - 5000:5000
+      - '5000:5000'
+    depends_on:
+      - db
+
   ml-client:
     build: ./machine-learning-client
-    ports:
-      - 3001:3001
-    environment:
-      DB_URL: mongodb://localhost
-  db:
-    image: mongo:6-jammy
-    ports: 
-      - 27017:27017
-    volumes:
-      - helloworld:/data/db
+    privileged: true
+    depends_on:
+      - db
 
+  
 volumes:
-  helloworld: 
+  db_data:
