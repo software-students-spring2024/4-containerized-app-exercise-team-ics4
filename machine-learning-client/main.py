@@ -13,7 +13,8 @@ db['status'].drop() # clear past data
 obj = {
     "loading": True,
     "gesture": "",
-    "confidence": 0
+    "confidence": 0,
+    "cameraConnected": False
 }
 set_loading = False
 collection = db.status
@@ -61,10 +62,11 @@ with GestureRecognizer.create_from_options(options) as recognizer:
     while video.isOpened(): 
         # Capture frame-by-frame
         ret, frame = video.read()
-        cv2.imshow("video", frame)
+        if (ret):
+            collection.update_one({"cameraConnected": False}, {"$set": {"cameraConnected": True}})
+            
         if(set_loading==False):
             # done loading
-            print("Done loading.")
             collection.update_one({"loading": True}, {"$set": {"loading": False}})
             set_loading=True
 
