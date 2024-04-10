@@ -21,7 +21,8 @@ def get_status():
         obj = {
             "loading": status.get("loading"),
             "gesture": status.get("gesture"),
-            "confidence": status.get("confidence")
+            "confidence": status.get("confidence"),
+            "cameraConnected": status.get("cameraConnected")
         }
     else:
         obj = {"error": "error"}
