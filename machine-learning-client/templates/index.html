@@ -4,13 +4,165 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flowbite Flask</title>
+    <title>ML Client iFrame</title>
     <link
       rel="stylesheet"
       href="{{url_for('static',filename='dist/css/output.css')}}"
     />
+    <script></script>
   </head>
   <body>
-    <h1 class="text-blue-600">Hello, Flask!</h1>
+    <div class="flex flex-row gap-x-3">
+      <!-- Button -->
+      <button
+        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-2xl text-sm px-5 py-2.5"
+        id="button"
+      >
+        Start Recording
+      </button>
+
+      <!-- Recording icon -->
+      <div
+        class="flex flex-row gap-x-2 items-center hidden"
+        style="animation: animate 1.5s linear infinite"
+        id="recording-label"
+      >
+        <h1 class="text-lg text-red-600 font-semibold">• Recording</h1>
+      </div>
+    </div>
   </body>
 </html>
+
+<script type="module">
+  import audio from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-audio@0.10.0";
+  const { AudioClassifier, AudioClassifierResult, FilesetResolver } = audio;
+  let isPlaying = false;
+  let audioClassifier;
+  let audioCtx;
+  const createAudioClassifier = async () => {
+    const audio = await FilesetResolver.forAudioTasks(
+      "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-audio@0.10.0/wasm"
+    );
+
+    audioClassifier = await AudioClassifier.createFromOptions(audio, {
+      baseOptions: {
+        modelAssetPath:
+          "https://storage.googleapis.com/mediapipe-models/audio_classifier/yamnet/float32/1/yamnet.tflite",
+      },
+    });
+  };
+
+  // function to update the mongo db
+  function updateStatus(updateData) {
+    const url = "/update";
+
+    const fetchOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        loading: updateData.loading,
+        sound1: updateData.sound1,
+        confidence1: updateData.confidence1,
+        sound2: updateData.sound2,
+        confidence2: updateData.confidence2,
+        sound3: updateData.sound3,
+        confidence3: updateData.confidence3,
+        microphoneConnected: updateData.microphoneConnected,
+      }),
+    };
+
+    fetch(url, fetchOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("Update successful:", data.message);
+        } else {
+          console.log("Update failed:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating status:", error);
+      });
+  }
+
+  const startRecording = async () => {
+    let tmp = document.getElementById("recording-label");
+    tmp.classList.toggle("hidden");
+
+    const constraints = { audio: true };
+    let stream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia(constraints);
+    } catch (err) {
+      console.log("The following error occured: " + err);
+      // user did not allow audio
+    }
+
+    // listening to audio
+    if (!audioCtx) {
+      audioCtx = new AudioContext({ sampleRate: 16000 });
+    } else if (audioCtx.state === "running") {
+      await audioCtx.suspend();
+      return;
+    }
+
+    // resumes AudioContext if has been suspended
+    await audioCtx.resume();
+
+    const source = audioCtx.createMediaStreamSource(stream);
+    const scriptNode = audioCtx.createScriptProcessor(16384, 1, 1);
+
+    // calls this on process
+    scriptNode.onaudioprocess = function (audioProcessingEvent) {
+      const inputBuffer = audioProcessingEvent.inputBuffer;
+      let inputData = inputBuffer.getChannelData(0);
+
+      // Classify the audio
+      const result = audioClassifier.classify(inputData);
+      const categories = result[0].classifications[0].categories;
+
+      console.log("----");
+      console.log(categories[0].categoryName, categories[0].score.toFixed(3));
+      console.log(categories[1].categoryName, categories[1].score.toFixed(3));
+      console.log(categories[2].categoryName, categories[2].score.toFixed(3));
+
+      console.log("updating db");
+      updateStatus({
+        loading: false,
+        sound1: categories[0].categoryName,
+        confidence1: categories[0].score.toFixed(3),
+        sound2: categories[1].categoryName,
+        confidence2: categories[1].score.toFixed(3),
+        sound3: categories[2].categoryName,
+        confidence3: categories[2].score.toFixed(3),
+        microphoneConnected: true,
+      });
+    };
+
+    source.connect(scriptNode);
+    scriptNode.connect(audioCtx.destination);
+  };
+  document.getElementById("button").addEventListener("click", function () {
+    startRecording();
+  });
+
+  document.addEventListener("DOMContentLoaded", async function () {
+    createAudioClassifier();
+  });
+</script>
+
+<style>
+  @keyframes animate {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 0.8;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
