@@ -7,6 +7,11 @@ Build a containerized app that uses machine learning. See [instructions](./instr
 # About
 This containerized app takes audio input from users and classifies the audio input into categories, such as speech and snaps.
 
+# Instructions
+To run this project, run the following commands:
+ - docker-compose build
+ - docker-compose up
+
 # References
 
 [Github Blog on Implementing OpenCV and Live Video Feed](https://github.com/google/mediapipe/issues/4448)
