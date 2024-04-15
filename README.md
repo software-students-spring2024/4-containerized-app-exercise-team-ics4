@@ -1,12 +1,8 @@
 ![Lint-free](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/lint.yml/badge.svg)
 
-# Containerized App Exercise
-
-Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
-
 # About
 
-This containerized app takes audio input from users and classifies the audio input into categories, such as speech and snaps.
+This containerized app takes real-time audio feed from users and classifies the it into categories. It then shows metadata about what it believes the sounds to be, and the confidence level for each category.
 
 # Instructions
 
