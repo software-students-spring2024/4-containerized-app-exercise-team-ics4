@@ -23,59 +23,60 @@
 
       <!--Microphone Disconnected-->
       <div
-      class="flex flex-row gap-x-2 items-center"
-      id="microphone-disconnected"
-    >
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
-    </svg>
-    
-
-      <h1 class="text-lg">Microphone Loading...</h1>
-    </div>
-
-    <!--Microphone Connected-->
-    <div
-      class="flex flex-row gap-x-2 items-center hidden"
-      id="microphone-connected"
-    >
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
-    </svg>
-    
-
-      <h1 class="text-lg text-green-600">Microphone Connected</h1>
-    </div>
-
-    <div
-      class="flex flex-row gap-x-2 items-center hidden"
-      id="done-loading"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-6 h-6 stroke-green-600"
+        class="flex flex-row gap-x-2 items-center"
+        id="microphone-disconnected"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
-        />
-      </svg>
-      <h1 class="text-green-600 text-lg">Loaded</h1>
-    </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z"
+          />
+        </svg>
+
+        <h1 class="text-lg">Microphone Loading...</h1>
+      </div>
+
+      <!--Microphone Connected-->
+      <div
+        class="flex flex-row gap-x-2 items-center hidden"
+        id="microphone-connected"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
+          />
+        </svg>
+
+        <h1 class="text-lg text-green-600">Microphone Connected</h1>
+      </div>
 
       <!-- metadata -->
       <div class="grid gap-y-0">
         <h1 class="text-gray-600 text-2xl mb-1">ML Client Response</h1>
 
-        <iframe src="http://localhost:1000" allow="camera *;microphone *" width="600"></iframe>
-
-        
-  </div>
+        <iframe
+          src="http://localhost:1000"
+          allow="camera *;microphone *"
+          width="600"
+        ></iframe>
+      </div>
 
       <!-- sound 1 -->
       <div class="flex flex-row gap-x-2">
@@ -84,7 +85,7 @@
         >
           <div class="flex flex-col gap-y-3 items-center">
             <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
-            <h1 class="font-bold text-6xl text-white" id="sound1">''</h1>
+            <h1 class="font-bold text-4xl text-white" id="sound1">''</h1>
           </div>
         </div>
         <div
@@ -94,7 +95,7 @@
             <h1 class="font-medium text-2xl text-white opacity-75">
               confidence
             </h1>
-            <h1 class="font-bold text-6xl text-white" id="confidence1">0.0</h1>
+            <h1 class="font-bold text-4xl text-white" id="confidence1">0.0</h1>
           </div>
         </div>
       </div>
@@ -106,7 +107,7 @@
         >
           <div class="flex flex-col gap-y-3 items-center">
             <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
-            <h1 class="font-bold text-6xl text-white" id="sound2">''</h1>
+            <h1 class="font-bold text-4xl text-white" id="sound2">''</h1>
           </div>
         </div>
         <div
@@ -116,7 +117,7 @@
             <h1 class="font-medium text-2xl text-white opacity-75">
               confidence
             </h1>
-            <h1 class="font-bold text-6xl text-white" id="confidence2">0.0</h1>
+            <h1 class="font-bold text-4xl text-white" id="confidence2">0.0</h1>
           </div>
         </div>
       </div>
@@ -128,7 +129,7 @@
         >
           <div class="flex flex-col gap-y-3 items-center">
             <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
-            <h1 class="font-bold text-6xl text-white" id="sound3">''</h1>
+            <h1 class="font-bold text-4xl text-white" id="sound3">''</h1>
           </div>
         </div>
         <div
@@ -138,12 +139,10 @@
             <h1 class="font-medium text-2xl text-white opacity-75">
               confidence
             </h1>
-            <h1 class="font-bold text-6xl text-white" id="confidence3">0.0</h1>
+            <h1 class="font-bold text-4xl text-white" id="confidence3">0.0</h1>
           </div>
         </div>
       </div>
-
-
     </div>
   </body>
 </html>
@@ -174,14 +173,6 @@
         }
       })
       .then((response) => {
-        console.log(response);
-        if (response["loading"] == false) {
-          const loadingDiv = document.getElementById("loading");
-          const doneLoadingDiv = document.getElementById("done-loading");
-          loadingDiv.classList.add("hidden");
-          doneLoadingDiv.classList.remove("hidden");
-        }
-
         // update metadata
         if (response["sound1"] != "") {
           sound1 = response["sound1"];
@@ -220,8 +211,9 @@
           const cameraDisconnectedDiv = document.getElementById(
             "microphone-disconnected"
           );
-          const cameraConnectedDiv =
-            document.getElementById("microphone-connected");
+          const cameraConnectedDiv = document.getElementById(
+            "microphone-connected"
+          );
           cameraDisconnectedDiv.classList.add("hidden");
           cameraConnectedDiv.classList.remove("hidden");
         }
