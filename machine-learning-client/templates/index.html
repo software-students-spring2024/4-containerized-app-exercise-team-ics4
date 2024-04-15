@@ -91,6 +91,8 @@
     let tmp = document.getElementById("recording-label");
     tmp.classList.toggle("hidden");
 
+    // toggle text
+
     const constraints = { audio: true };
     let stream;
     try {
@@ -146,6 +148,13 @@
   };
   document.getElementById("button").addEventListener("click", function () {
     startRecording();
+
+    var button = this;
+    if (button.innerText === "Start Recording") {
+      button.innerText = "Stop Recording";
+    } else {
+      button.innerText = "Start Recording";
+    }
   });
 
   document.addEventListener("DOMContentLoaded", async function () {
