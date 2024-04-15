@@ -11,134 +11,139 @@
     />
   </head>
   <body>
-    <div class="container mx-auto my-24 max-w-screen-sm grid gap-y-12">
+    <div class="container mx-auto my-24 max-w-screen-sm grid gap-y-6">
       <!-- header -->
       <div class="grid gap-y-4">
         <h1 class="text-blue-600 font-bold text-4xl">Gesture to Emoji</h1>
         <h1 class="text-lg">
-          In this project, we take your video feed and convert your hand gesture
-          into an emoji.
+          In this project, we take your audio feed and classify the sounds.
         </h1>
-        <h1 class="text-lg">Try these out! 👍✊✋☝️👎✌️</h1>
+        <h1 class="text-lg">Try speaking or snapping!</h1>
       </div>
+
+      <!--Microphone Disconnected-->
+      <div
+      class="flex flex-row gap-x-2 items-center"
+      id="microphone-disconnected"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75 19.5 12m0 0 2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6 4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75Z" />
+    </svg>
+    
+
+      <h1 class="text-lg">Microphone Loading...</h1>
+    </div>
+
+    <!--Microphone Connected-->
+    <div
+      class="flex flex-row gap-x-2 items-center hidden"
+      id="microphone-connected"
+    >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+    </svg>
+    
+
+      <h1 class="text-lg text-green-600">Microphone Connected</h1>
+    </div>
+
+    <div
+      class="flex flex-row gap-x-2 items-center hidden"
+      id="done-loading"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-6 h-6 stroke-green-600"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
+        />
+      </svg>
+      <h1 class="text-green-600 text-lg">Loaded</h1>
+    </div>
 
       <!-- metadata -->
-      <div class="grid gap-y-2">
+      <div class="grid gap-y-0">
         <h1 class="text-gray-600 text-2xl mb-1">ML Client Response</h1>
 
-        <!-- loading -->
-        <div class="flex flex-row gap-x-2 items-center" id="loading">
-          <div role="status">
-            <svg
-              aria-hidden="true"
-              class="w-5 h-5 text-gray-200 animate-spin dark:text-gray-400 fill-blue-600"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
-            <span class="sr-only">Loading...</span>
-          </div>
-          <h1 class="text-lg">ML Client Loading...</h1>
-        </div>
+        <iframe src="http://localhost:1000" allow="camera *;microphone *" width="600"></iframe>
 
-        <iframe src="http://localhost:1000"></iframe>
-        <!--Camera Disconnected-->
-        <div
-          class="flex flex-row gap-x-2 items-center"
-          id="camera-disconnected"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5 stoke-red-600"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M12 18.75H4.5a2.25 2.25 0 0 1-2.25-2.25V9m12.841 9.091L16.5 19.5m-1.409-1.409c.407-.407.659-.97.659-1.591v-9a2.25 2.25 0 0 0-2.25-2.25h-9c-.621 0-1.184.252-1.591.659m12.182 12.182L2.909 5.909M1.5 4.5l1.409 1.409"
-            />
-          </svg>
+        
+  </div>
 
-          <h1 class="text-lg">Camera Loading...</h1>
-        </div>
-
-        <!--Camera Connected-->
-        <div
-          class="flex flex-row gap-x-2 items-center hidden"
-          id="camera-connected"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5 stroke-green-600"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z"
-            />
-          </svg>
-
-          <h1 class="text-lg text-green-600">Camera Connected</h1>
-        </div>
-
-        <div
-          class="flex flex-row gap-x-2 items-center hidden"
-          id="done-loading"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6 stroke-green-600"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z"
-            />
-          </svg>
-          <h1 class="text-green-600 text-lg">Loaded</h1>
-        </div>
-      </div>
-
+      <!-- sound 1 -->
       <div class="flex flex-row gap-x-2">
         <div
-          class="bg-blue-600 rounded-3xl h-64 w-1/2 grid place-content-center"
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
         >
           <div class="flex flex-col gap-y-3 items-center">
-            <h1 class="font-medium text-2xl text-white opacity-75">gesture</h1>
-            <h1 class="font-bold text-6xl text-white" id="gesture">''</h1>
+            <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
+            <h1 class="font-bold text-6xl text-white" id="sound1">''</h1>
           </div>
         </div>
         <div
-          class="bg-blue-600 rounded-3xl h-64 w-1/2 grid place-content-center"
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
         >
           <div class="flex flex-col gap-y-3 items-center">
             <h1 class="font-medium text-2xl text-white opacity-75">
               confidence
             </h1>
-            <h1 class="font-bold text-6xl text-white" id="confidence">0.0</h1>
+            <h1 class="font-bold text-6xl text-white" id="confidence1">0.0</h1>
           </div>
         </div>
       </div>
+
+      <!-- sound 2 -->
+      <div class="flex flex-row gap-x-2">
+        <div
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
+            <h1 class="font-bold text-6xl text-white" id="sound2">''</h1>
+          </div>
+        </div>
+        <div
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">
+              confidence
+            </h1>
+            <h1 class="font-bold text-6xl text-white" id="confidence2">0.0</h1>
+          </div>
+        </div>
+      </div>
+
+      <!-- sound 3 -->
+      <div class="flex flex-row gap-x-2">
+        <div
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">sound</h1>
+            <h1 class="font-bold text-6xl text-white" id="sound3">''</h1>
+          </div>
+        </div>
+        <div
+          class="bg-blue-600 rounded-3xl h-40 w-1/2 grid place-content-center"
+        >
+          <div class="flex flex-col gap-y-3 items-center">
+            <h1 class="font-medium text-2xl text-white opacity-75">
+              confidence
+            </h1>
+            <h1 class="font-bold text-6xl text-white" id="confidence3">0.0</h1>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </body>
 </html>
@@ -178,30 +183,45 @@
         }
 
         // update metadata
-        if (response["gesture"] != "") {
-          gesture = response["gesture"];
-          var text = "''";
-          if (gesture == "Thumb_Up") text = "👍";
-          if (gesture == "Closed_Fist") text = "✊";
-          if (gesture == "Open_Palm") text = "✋";
-          if (gesture == "Pointing_Up") text = "☝️";
-          if (gesture == "Thumb_Down") text = "👎";
-          if (gesture == "Victory") text = "✌️";
+        if (response["sound1"] != "") {
+          sound1 = response["sound1"];
 
-          const gestureElement = document.getElementById("gesture");
-          gestureElement.textContent = text;
+          const gestureElement = document.getElementById("sound1");
+          gestureElement.textContent = sound1;
 
-          const confidenceElement = document.getElementById("confidence");
+          const confidenceElement = document.getElementById("confidence1");
           confidenceElement.textContent =
-            (response["confidence"] * 100).toFixed(2) + "%";
+            (response["confidence1"] * 100).toFixed(2) + "%";
+        }
+        // same for sound2
+        if (response["sound2"] != "") {
+          sound2 = response["sound2"];
+
+          const gestureElement = document.getElementById("sound2");
+          gestureElement.textContent = sound2;
+
+          const confidenceElement = document.getElementById("confidence2");
+          confidenceElement.textContent =
+            (response["confidence2"] * 100).toFixed(2) + "%";
+        }
+        // same for sound3
+        if (response["sound3"] != "") {
+          sound3 = response["sound3"];
+
+          const gestureElement = document.getElementById("sound3");
+          gestureElement.textContent = sound3;
+
+          const confidenceElement = document.getElementById("confidence3");
+          confidenceElement.textContent =
+            (response["confidence3"] * 100).toFixed(2) + "%";
         }
 
-        if (response["cameraConnected"] == true) {
+        if (response["microphoneConnected"] == true) {
           const cameraDisconnectedDiv = document.getElementById(
-            "camera-disconnected"
+            "microphone-disconnected"
           );
           const cameraConnectedDiv =
-            document.getElementById("camera-connected");
+            document.getElementById("microphone-connected");
           cameraDisconnectedDiv.classList.add("hidden");
           cameraConnectedDiv.classList.remove("hidden");
         }
