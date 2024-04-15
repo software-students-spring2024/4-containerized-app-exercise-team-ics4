@@ -20,9 +20,13 @@ def get_status():
     if status:
         obj = {
             "loading": status.get("loading"),
-            "gesture": status.get("gesture"),
-            "confidence": status.get("confidence"),
-            "cameraConnected": status.get("cameraConnected")
+            "sound1": status.get("sound1"),
+            "confidence1": status.get("confidence1"),
+            "sound2": status.get("sound2"),
+            "confidence2": status.get("confidence2"),
+            "sound3": status.get("sound3"),
+            "confidence3": status.get("confidence3"),
+            "microphoneConnected": status.get("microphoneConnected")
         }
     else:
         obj = {"error": "error"}
@@ -36,9 +40,13 @@ def reset_status():
     try:
         initial_status = {
 			"loading": True,
-			"gesture": "",
-			"confidence": 0,
-            "cameraConnected": False
+			"sound1": "",
+			"confidence1": 0,
+            "sound2": "",
+            "confidence2": 0,
+            "sound3": "",
+            "confidence3": 0,
+            "microphoneConnected": False
 		}
         status_collection.update_one({}, {"$set": initial_status})
         return jsonify({"success": True, "message": "Status reset to initial state"})
