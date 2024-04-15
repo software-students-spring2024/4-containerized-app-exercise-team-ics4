@@ -5,12 +5,15 @@
 Build a containerized app that uses machine learning. See [instructions](./instructions.md) for details.
 
 # About
+
 This containerized app takes audio input from users and classifies the audio input into categories, such as speech and snaps.
 
 # Instructions
-To run this project, run the following commands:
- - docker-compose build
- - docker-compose up
+
+To run this project, build the docker containers using docker-compose. Pre-requisite is to have docker installed on your system. In the root directory, run:
+
+`docker-compose build`
+`docker-compose up`
 
 # References
 
@@ -23,4 +26,3 @@ To run this project, run the following commands:
 - [Eric Lin](https://github.com/exl7954)
 - [Alice Ding](https://github.com/ayd2134)
 - [Justin Zhao](https://github.com/zhaojustin)
-
