@@ -1,16 +1,18 @@
 from flask import Flask, render_template, jsonify
 from pymongo import MongoClient
+import os
 
 app = Flask(__name__)
 
-client = MongoClient()
+client = MongoClient('mongodb://mongo:27017/')
 db = client.audio_feed
 status_collection = db.status
 
 @app.route("/")
 @app.route("/index")
 def index():
-	return render_template("index.html")
+    frame_src = os.getenv("FRAME_SRC", "http://localhost:1000")
+    return render_template("index.html", frame_src=frame_src)
 
 @app.route('/status', methods=['GET'])
 def get_status():

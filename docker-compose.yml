@@ -1,29 +1,39 @@
 version: "3.8"
 
 services:
-  db:
+  mongo:
     image: mongo:latest
-    privileged: true
     ports: 
       - '27017:27017'
-    volumes:
-      - db_data:/data/db
-
-  webapp:
-    build: ./web-app
-    privileged: true
-    ports:
-      - '5000:5000'
-    depends_on:
-      - db
+    networks:
+      - app-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
 
   ml-client:
     build: ./machine-learning-client
-    privileged: true
     ports:
       - '1000:1000'
     depends_on:
-      - db
-  
-volumes:
-  db_data:
+      - mongo
+    networks:
+      - app-network
+
+  webapp:
+    build: ./web-app
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo
+      - ml-client
+    networks:
+      - app-network
+    environment:
+      - "FRAME_SRC=http://ml-client:1000"
+
+networks:
+  app-network:
+    driver: bridge
