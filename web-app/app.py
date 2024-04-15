@@ -4,7 +4,7 @@ from pymongo import MongoClient
 app = Flask(__name__)
 
 client = MongoClient()
-db = client.camera_live_feed
+db = client.audio_feed
 status_collection = db.status
 
 @app.route("/")
