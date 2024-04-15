@@ -20,9 +20,10 @@ services:
   ml-client:
     build: ./machine-learning-client
     privileged: true
+    ports:
+      - '1000:1000'
     depends_on:
       - db
-
   
 volumes:
   db_data:
