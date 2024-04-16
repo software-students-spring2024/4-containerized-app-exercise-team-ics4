@@ -1,6 +1,8 @@
-from flask import Flask, render_template, jsonify
-from pymongo import MongoClient
+"""Import modules"""
+
 import os
+from flask import Flask, render_template, jsonify
+from pymongo import MongoClient, errors
 
 app = Flask(__name__)
 
@@ -8,14 +10,18 @@ client = MongoClient('mongodb://mongo:27017/')
 db = client.audio_feed
 status_collection = db.status
 
+
 @app.route("/")
 @app.route("/index")
 def index():
+    """returns iframe content"""
     frame_src = os.getenv("FRAME_SRC", "http://localhost:1000")
     return render_template("index.html", frame_src=frame_src)
 
+
 @app.route('/status', methods=['GET'])
 def get_status():
+    """get status of mongodb from ml client"""
     status = status_collection.find_one({})
 
     # Convert MongoDB document to JSON
@@ -39,6 +45,7 @@ def get_status():
 
 @app.route('/reset_status', methods=['POST'])
 def reset_status():
+    """reset mongodb status to initial status"""
     try:
         initial_status = {
 			"loading": True,
@@ -52,9 +59,14 @@ def reset_status():
 		}
         status_collection.update_one({}, {"$set": initial_status})
         return jsonify({"success": True, "message": "Status reset to initial state"})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)})
+    except errors.ConnectionFailure:
+        return jsonify({"success": False, "error": "Failed to connect to MongoDB."}), 503
+    except errors.OperationFailure as e:
+        return jsonify({"success": False, "error": "MongoDB operation failed: " + str(e)}), 500
+    except errors.PyMongoError as e:
+        return jsonify({"success": False, "error": "Database error occurred: " + str(e)}), 500
 
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
+ 
