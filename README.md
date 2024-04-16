@@ -8,8 +8,16 @@ This containerized app takes real-time audio feed from users and classifies the 
 
 To run this project, build the docker containers using docker-compose. Pre-requisite is to have docker installed on your system. In the root directory, run:
 
-`docker-compose build`
-`docker-compose up`
+- `docker-compose up --build`
+
+# Testing Instructions _IMPORTANT_
+
+To test this project, we wanted to isolate the mongo testing environment with the production environment. Therefore, before running `pytest tests/` in the root directories of [machine-learning-client](./machine-learning-client/) and [web-app](./web-app/), make sure to temporarily change the Mongo connection uri string in the respective `app.py` files. Be sure to change them back after testing.
+
+To run tests,
+
+- install dependencies listed in the requirements.txt file
+- navigate to [machine-learning-client](./machine-learning-client/) or [web-app](./web-app/) and run `pytest tests/`
 
 # References
 
