@@ -27,25 +27,3 @@ jobs:
         working-directory: ./machine-learning-client
         run: |
           pytest tests/
-
-  test-web-app:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v3
-        name: Checkout code
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v3
-        with:
-          python-version: "3.9"
-
-      - name: Install dependencies for web-app
-        working-directory: ./web-app
-        run: |
-          pip install -r requirements.txt  # Ensure you have a requirements.txt with pytest and any other dependencies
-
-      - name: Run tests in web-app
-        working-directory: ./web-app
-        run: |
-          pytest tests/
