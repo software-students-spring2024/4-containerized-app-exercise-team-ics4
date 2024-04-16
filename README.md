@@ -1,5 +1,7 @@
 ![Lint-free](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/lint.yml/badge.svg)
 
+![Pytests](https://github.com/nyu-software-engineering/containerized-app-exercise/actions/workflows/pytest-workflow.yml/badge.svg)
+
 # About
 
 This containerized app takes real-time audio feed from users and classifies the it into categories. It then shows metadata about what it believes the sounds to be, and the confidence level for each category.
