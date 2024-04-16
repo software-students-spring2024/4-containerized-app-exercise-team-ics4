@@ -3,7 +3,9 @@ from pymongo import MongoClient
 
 app = Flask(__name__)
 
-client = MongoClient("mongodb://mongo:27017/")
+# for testing, use this uri: mongodb://localhost:27017/
+# normally, use this uri: mongodb://mongo:27017/
+client = MongoClient("mongodb://localhost:27017/")
 db = client.audio_feed
 collection = db.status
 
